@@ -1,0 +1,28 @@
+version: "2.3"
+
+services:
+
+  ##
+  # Debian Workspace
+  ##
+  shultu:
+    container_name: shultu
+    hostname: shultu
+    # image: nobiki/shultu:latest
+    image: shultu
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file: ./.env
+    volumes:
+      - /tmp/.X11-unix/:/tmp/.X11-unix
+      - ${PWD}/dotfiles/:/tmp/dotfiles/:ro
+      - ${PWD}/bootstrap.sh:/bootstrap.sh
+      - ${PWD}/mnt/var/workspace/:/var/workspace/
+      - ${PWD}/mnt/etc/supervisor/conf.d/:/etc/supervisor/conf.d/
+    # runtime: nvidia
+    tty: true
+    init: true
