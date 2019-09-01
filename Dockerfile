@@ -1,6 +1,7 @@
 FROM debian:buster-slim
 
 ENV DISPLAY ${DISPLAY:-:0}
+ENV PROVISION ${PROVISION:-light}
 
 ARG ZONEINFO
 ENV ZONEINFO ${ZONEINFO:-Asia/Tokyo}
@@ -60,8 +61,7 @@ USER $USER
 WORKDIR /provision
 
 # provision
-RUN ./light.sh
-# RUN ./full.sh
+RUN ./${PROVISION}.sh
 
 # vacuum
 RUN sudo apt clean \

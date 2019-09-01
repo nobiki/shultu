@@ -11,6 +11,12 @@ $ cp example.env .env
 $ edit .env
 ```
 
+Set `PROVISION` to `light` or `full` (Default: light)
+
+```
+PROVISION=light
+```
+
 2. build docker image
 
 ```
