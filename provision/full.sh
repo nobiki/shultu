@@ -42,13 +42,6 @@ sudo apt install -y \
 . ./include/awscli.sh
 # . ./include/gcloud.sh  // bash
 
-# . ./include/goenv.sh
-# . ./include/phpenv.sh
-# . ./include/phpcs.sh
-# . ./include/pyenv.sh
-# . ./include/rbenv.sh
-# . ./include/nodenv.sh
-
 . ./include/nginx.sh
 . ./include/ngrok.sh
 . ./include/certbot.sh

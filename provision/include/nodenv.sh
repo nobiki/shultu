@@ -1,1 +1,1 @@
-anyenv install nodenv
+# anyenv install nodenv

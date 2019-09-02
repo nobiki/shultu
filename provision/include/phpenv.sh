@@ -11,4 +11,4 @@ sudo apt install -y g++ \
   libmcrypt-dev \
   libxslt1.1 libxslt-dev
 
-anyenv install phpenv
+# anyenv install phpenv

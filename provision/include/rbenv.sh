@@ -1,1 +1,1 @@
-anyenv install rbenv
+# anyenv install rbenv
