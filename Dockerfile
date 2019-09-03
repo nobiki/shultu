@@ -37,13 +37,15 @@ WORKDIR /provision
 # provision (core)
 RUN /provision/core.sh
 
-# sudo
+# sudo & ssh-config
 RUN mkdir -p /home/$USER/bin \
  && useradd -s /bin/bash -d /home/$USER $USER \
  && echo "$USER:$PASS" | chpasswd \
  && echo ${USER}' ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/$USER \
- && chown -R $USER:$USER /home/$USER \
+ && mkdir -p /home/$USER/.ssh \
  && mkdir -p /var/workspace/ \
+ && echo "Include /var/workspace/.ssh/config" > /home/$USER/.ssh/config \
+ && chown -R $USER:$USER /home/$USER \
  && echo "Since this directory is not a mounted directory, it is not persisted." > /var/workspace/readme
 
 # langage & timezone
