@@ -50,24 +50,29 @@ RUN locale-gen ${LANG} \
  && update-locale LANG=${LANG} \
  && ln -sf /usr/share/zoneinfo/${ZONEINFO} /etc/localtime
 
+# xserver
+RUN apt install -y dbus dbus-x11 xorg xserver-xorg-legacy xinit xterm
+RUN sed -i "s/allowed_users=console/allowed_users=anybody/;$ a needs_root_rights=yes" /etc/X11/Xwrapper.config
+
 # kde plasma desktop
-# RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
-#  && echo keyboard-configuration keyboard-configuration/layout select 'Japanese (JP)' | debconf-set-selections \
-#  && echo keyboard-configuration keyboard-configuration/layoutcode select 'ja' | debconf-set-selections \
-#  && echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections \
-#  && apt install -y kde-plasma-desktop
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
+ && echo keyboard-configuration keyboard-configuration/layout select 'Japanese (JP)' | debconf-set-selections \
+ && echo keyboard-configuration keyboard-configuration/layoutcode select 'ja' | debconf-set-selections \
+ && echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections \
+ && apt install -y kde-plasma-desktop
 
 USER $USER
 WORKDIR /provision
 
 # provision
-RUN ./${PROVISION}.sh
+# RUN ./${PROVISION}.sh
 
 # vacuum
 RUN sudo apt clean \
  && sudo apt autoclean \
  && sudo rm -f /provision.sh \
  && sudo rm -rf /include-script \
+ && sudo rm -rf /var/lib/apt/lists/* \
  && sudo rm -rf /tmp/*
 
 WORKDIR /home/$USER
