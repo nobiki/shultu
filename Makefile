@@ -6,7 +6,7 @@ DOTENV=$(shell cat .env | xargs -IENV echo --build-arg ENV | tr '\n' ' ')
 build:: ## build shultu images
 	docker-compose build --force-rm --no-cache $(DOTENV) | tee build.log
 
-shultu: ## run shultu container
+tty: ## run shultu container
 	# docker run -it --rm shultu
 	docker-compose run --rm shultu
 
