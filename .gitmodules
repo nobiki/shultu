@@ -1,3 +1,6 @@
 [submodule "dotfiles"]
 	path = dotfiles
 	url = git@github.com:nobiki/dotfiles
+[submodule "vagrant-docker-host"]
+	path = vagrant-docker-host
+	url = git@github.com:nobiki/vagrant-docker-host
