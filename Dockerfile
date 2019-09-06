@@ -71,7 +71,6 @@ RUN ./${PROVISION}.sh
 RUN sudo apt clean \
  && sudo apt autoclean \
  && sudo rm -f /provision.sh \
- && sudo rm -rf /include-script \
  && sudo rm -rf /tmp/*
 
 WORKDIR /home/$USER
