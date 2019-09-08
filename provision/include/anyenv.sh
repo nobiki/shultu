@@ -1,9 +1,13 @@
-git clone "https://github.com/riywo/anyenv" ~/.anyenv
+tee /tmp/.include_profile << 'EOF'
+if [ ! -e ~/.anyenv ]; then
+    git clone "https://github.com/riywo/anyenv" ~/.anyenv
+fi
+EOF
 
-echo 'export ANYENV_ROOT=/var/workspace/.anyenv/' >> /tmp/.include_profile
-echo 'export ANYENV_DEFINITION_ROOT=/var/workspace/.anyenv/.config/anyenv-install/' >> /tmp/.include_profile
+# echo 'export ANYENV_ROOT=~/.anyenv/' >> /tmp/.include_profile
+# echo 'export ANYENV_DEFINITION_ROOT=~/.anyenv/.config/anyenv-install/' >> /tmp/.include_profile
 
-echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> /tmp/.include_profile
+echo 'export PATH="~/.anyenv/bin:$PATH"' >> /tmp/.include_profile
 echo 'eval "$(anyenv init -)"' >> /tmp/.include_profile
 
 . ./include/goenv.sh

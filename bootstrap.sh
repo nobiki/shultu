@@ -4,8 +4,7 @@ if [ ! -e /bootstrap.lock ]; then
     echo -e '\e[1;32m[bootstrap.sh]\e[m'
 
     # workspace
-    ln -s /var/workspace ~/workspace
-    sudo chown $(id -u):$(id -g) /var/workspace/
+    sudo chown $(id -u):$(id -g) ${HOME}
 
     # dotfiles
     if [ -e /tmp/dotfiles ]; then

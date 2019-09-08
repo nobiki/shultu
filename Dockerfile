@@ -7,10 +7,10 @@ ARG ZONEINFO
 ENV ZONEINFO ${ZONEINFO:-Asia/Tokyo}
 ARG LANG
 ENV LANG ${LANG:-ja_JP.UTF-8}
-ARG USER
-ENV USER ${USER:-shultu}
-ARG PASS
-ENV PASS ${PASS:-shultu}
+ARG LOGIN_ID
+ENV LOGIN_ID ${LOGIN_ID:-shultu}
+ARG LOGIN_PW
+ENV LOGIN_PW ${LOGIN_PW:-shultu}
 ARG LOCALE_DEF
 ENV LOCALE_DEF ${LOCALE_DEF:-ja_JP}
 
@@ -29,17 +29,6 @@ WORKDIR /provision
 # provision (core)
 RUN /provision/core.sh
 
-# sudo & ssh-config
-RUN mkdir -p /home/$USER/bin \
- && useradd -s /bin/bash -d /home/$USER $USER \
- && echo "$USER:$PASS" | chpasswd \
- && echo ${USER}' ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/$USER \
- && mkdir -p /home/$USER/.ssh \
- && mkdir -p /var/workspace/ \
- && echo "Include /var/workspace/.ssh/config" > /home/$USER/.ssh/config \
- && chown -R $USER:$USER /home/$USER \
- && echo "Since this directory is not a mounted directory, it is not persisted." > /var/workspace/readme
-
 # langage & timezone
 RUN locale-gen ${LANG} \
  && localedef -f UTF-8 -i ${LOCALE_DEF} ${LANG} \
@@ -53,8 +42,15 @@ RUN locale-gen ${LANG} \
 #  && echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections \
 #  && apt install -y kde-plasma-desktop
 
-USER $USER
-WORKDIR /provision
+# sudo
+RUN mkdir -p /home/$LOGIN_ID \
+ && useradd -s /bin/bash -d /home/$LOGIN_ID $LOGIN_ID \
+ && echo "$LOGIN_ID:$LOGIN_PW" | chpasswd \
+ && echo ${LOGIN_ID}' ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/$LOGIN_ID \
+ && chown -R $LOGIN_ID:$LOGIN_ID /home/$LOGIN_ID
+
+ENV HOME /home/$LOGIN_ID
+USER $LOGIN_ID
 
 # provision
 RUN ./${PROVISION}.sh
@@ -62,10 +58,7 @@ RUN ./${PROVISION}.sh
 # vacuum
 RUN sudo apt clean \
  && sudo apt autoclean \
- && sudo rm -f /provision.sh \
  && sudo rm -rf /tmp/*
 
-WORKDIR /home/$USER
-ENV HOME /home/$USER
-
+WORKDIR ${HOME}
 CMD ["/bootstrap.sh"]
