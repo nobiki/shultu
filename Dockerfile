@@ -1,26 +1,18 @@
 FROM debian:buster-slim
-
-ENV DISPLAY ${DISPLAY:-:0}
+ENV DEBIAN_FRONTEND noninteractive
 
 ARG PROVISION
 ENV PROVISION ${PROVISION:-light}
-
 ARG ZONEINFO
 ENV ZONEINFO ${ZONEINFO:-Asia/Tokyo}
-
 ARG LANG
 ENV LANG ${LANG:-ja_JP.UTF-8}
-
 ARG USER
 ENV USER ${USER:-shultu}
-
 ARG PASS
 ENV PASS ${PASS:-shultu}
-
 ARG LOCALE_DEF
 ENV LOCALE_DEF ${LOCALE_DEF:-ja_JP}
-
-ENV DEBIAN_FRONTEND noninteractive
 
 # entrypoint
 COPY bootstrap.sh /bootstrap.sh
