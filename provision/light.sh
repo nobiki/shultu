@@ -32,6 +32,7 @@ sudo apt install -y \
 . ./include/anyenv.sh
 . ./include/direnv.sh
 . ./include/git_find_big.sh
+. ./include/ctop.sh
 . ./include/hcat.sh
 . ./include/highway.sh
 . ./include/jq.sh
