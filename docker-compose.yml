@@ -13,13 +13,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      # ports:
-      #   - "80:80"
-      #   - "443:443"
-    env_file: ./.env
     networks:
-      shultu:
-        ipv4_address: 172.100.0.2
+      - shultu
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file: ./.env
     volumes:
       - /tmp/.X11-unix/:/tmp/.X11-unix
       - /var/run/docker.sock:/var/run/docker.sock

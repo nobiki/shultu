@@ -1,16 +1,21 @@
 FROM debian:buster-slim
 ENV DEBIAN_FRONTEND noninteractive
 
+ARG DOCKER_GID
+ENV DOCKER_GID ${DOCKER_GID}
+
 ARG PROVISION
 ENV PROVISION ${PROVISION:-light}
-ARG ZONEINFO
-ENV ZONEINFO ${ZONEINFO:-Asia/Tokyo}
-ARG LANG
-ENV LANG ${LANG:-ja_JP.UTF-8}
+
 ARG LOGIN_ID
 ENV LOGIN_ID ${LOGIN_ID:-shultu}
 ARG LOGIN_PW
 ENV LOGIN_PW ${LOGIN_PW:-shultu}
+
+ARG ZONEINFO
+ENV ZONEINFO ${ZONEINFO:-Asia/Tokyo}
+ARG LANG
+ENV LANG ${LANG:-ja_JP.UTF-8}
 ARG LOCALE_DEF
 ENV LOCALE_DEF ${LOCALE_DEF:-ja_JP}
 
@@ -48,6 +53,10 @@ RUN mkdir -p /home/$LOGIN_ID \
  && echo "$LOGIN_ID:$LOGIN_PW" | chpasswd \
  && echo ${LOGIN_ID}' ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/$LOGIN_ID \
  && chown -R $LOGIN_ID:$LOGIN_ID /home/$LOGIN_ID
+
+# docker user
+RUN groupadd -g $DOCKER_GID docker \
+ && usermod -aG docker $LOGIN_ID
 
 ENV HOME /home/$LOGIN_ID
 USER $LOGIN_ID
