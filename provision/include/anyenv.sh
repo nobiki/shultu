@@ -1,8 +1,8 @@
-tee /tmp/.include_profile << 'EOF'
+cat << 'EOS' >> /tmp/.include_profile
 if [ ! -e ~/.anyenv ]; then
     git clone "https://github.com/riywo/anyenv" ~/.anyenv
 fi
-EOF
+EOS
 
 # echo 'export ANYENV_ROOT=~/.anyenv/' >> /tmp/.include_profile
 # echo 'export ANYENV_DEFINITION_ROOT=~/.anyenv/.config/anyenv-install/' >> /tmp/.include_profile

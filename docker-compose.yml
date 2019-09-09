@@ -13,10 +13,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "80:80"
-      - "443:443"
+      # ports:
+      #   - "80:80"
+      #   - "443:443"
     env_file: ./.env
+    networks:
+      shultu:
+        ipv4_address: 172.100.0.2
     volumes:
       - /tmp/.X11-unix/:/tmp/.X11-unix
       - /var/run/docker.sock:/var/run/docker.sock
@@ -29,3 +32,12 @@ services:
     # runtime: nvidia
     tty: true
     init: true
+
+networks:
+  shultu:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.100.0.0/16
+          gateway: 172.100.0.1
