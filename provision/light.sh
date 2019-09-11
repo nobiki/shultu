@@ -7,6 +7,7 @@ sudo apt install -y \
     gawk \
     curl \
     wget \
+    rsync \
     aria2 \
     screen \
     expect \
