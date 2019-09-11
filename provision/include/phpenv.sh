@@ -9,6 +9,8 @@ sudo apt install -y g++ \
   libtidy-dev \
   libcurl4-openssl-dev \
   libmcrypt-dev \
+  re2c \
+  libzip-dev \
   libxslt1.1 libxslt-dev
 
 # anyenv install phpenv
