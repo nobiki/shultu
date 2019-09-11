@@ -29,6 +29,7 @@ sudo apt install -y \
 
 . ./include/yarn.sh
 . ./include/fzf.sh
+. ./include/ctags.sh
 . ./include/enhancd.sh
 . ./include/anyenv.sh
 . ./include/direnv.sh
