@@ -31,10 +31,10 @@ dotfiles/
 └── .bash_profile
 ```
 
-4. exec docker image
+4. run docker image
 
 ```
-$ make shultu
+$ make tty
 ```
 
 
