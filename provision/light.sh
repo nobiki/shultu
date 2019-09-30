@@ -14,6 +14,8 @@ sudo apt install -y \
     cron \
     htop \
     ncdu \
+    iputils-ping \
+    iproute2 \
     openssl \
     make \
     build-essential \

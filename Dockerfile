@@ -50,6 +50,7 @@ RUN locale-gen ${LANG} \
 # sudo
 RUN mkdir -p /home/$LOGIN_ID \
  && useradd -s /bin/bash -d /home/$LOGIN_ID $LOGIN_ID \
+ && echo "root:root" | chpasswd \
  && echo "$LOGIN_ID:$LOGIN_PW" | chpasswd \
  && echo ${LOGIN_ID}' ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/$LOGIN_ID \
  && chown -R $LOGIN_ID:$LOGIN_ID /home/$LOGIN_ID
