@@ -16,6 +16,8 @@ if [ ! -e /bootstrap.lock ]; then
         cat /tmp/.include_profile >> ~/.bash_profile
     fi
 
+    sed -i -e "s/source \/usr\/local\/lib\/enhancd/#source \/usr\/local\/lib\/enhancd/g" ~/.bash_profile
+
     sudo touch /bootstrap.lock
 fi
 
