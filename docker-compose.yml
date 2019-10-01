@@ -5,7 +5,7 @@ services:
   ##
   # Debian Workspace
   ##
-  shultu:
+  shultu: &shultu
     container_name: shultu
     hostname: shultu
     # image: nobiki/shultu:latest
@@ -30,6 +30,10 @@ services:
     # runtime: nvidia
     tty: true
     init: true
+
+  shultu-root:
+    <<: *shultu
+    privileged: true
 
 networks:
   shultu:

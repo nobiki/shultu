@@ -8,8 +8,10 @@ build:: ## build shultu images
 	docker-compose build --force-rm --no-cache --build-arg DOCKER_GID=${DOCKER_GID} $(DOTENV) | tee build.log
 
 tty: ## run shultu container
-	# docker run -it --rm shultu
 	docker-compose run --rm shultu
+
+tty-root: ## run shultu container (root)
+	docker-compose run --rm shultu-root
 
 submodule-update:
 	git submodule update --init --recursive
