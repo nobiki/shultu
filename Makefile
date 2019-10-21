@@ -5,7 +5,7 @@ DOCKER_GID=`cat /etc/group | grep docker | cut -d ":" -f 3`
 DOTENV=$(shell cat .env | xargs -IENV echo --build-arg ENV | tr '\n' ' ')
 
 build:: ## build shultu images
-	docker-compose build --force-rm --no-cache --build-arg DOCKER_GID=${DOCKER_GID} $(DOTENV) | tee build.log
+	docker-compose build --build-arg DOCKER_GID=${DOCKER_GID} $(DOTENV) shultu | tee build.log
 
 tty: ## run shultu container
 	docker-compose run --rm shultu
