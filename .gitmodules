@@ -4,3 +4,6 @@
 [submodule "vagrant-docker-host"]
 	path = vagrant-docker-host
 	url = git@github.com:nobiki/vagrant-docker-host
+[submodule "provision"]
+	path = provision
+	url = https://github.com/nobiki/provision
