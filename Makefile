@@ -4,7 +4,16 @@
 DOCKER_GID=`cat /etc/group | grep docker | cut -d ":" -f 3`
 DOTENV=$(shell cat .env | xargs -IENV echo --build-arg ENV | tr '\n' ' ')
 
+provision:
+	mkdir provision
+	git init provision/
+	git -C provision/ config core.sparsecheckout true
+	git -C provision/ remote add origin https://github.com/nobiki/provision
+	echo "shell/include" > provision/.git/info/sparse-checkout
+	git -C provision/ pull origin master
+
 build:: ## build shultu images
+	make provision
 	docker-compose build --build-arg DOCKER_GID=${DOCKER_GID} $(DOTENV) shultu | tee build.log
 
 tty: ## run shultu container
