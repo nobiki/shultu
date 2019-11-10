@@ -29,10 +29,12 @@ RUN if [ ! -d /usr/share/man/man1 ]; then \
 
 # add provision script
 ADD provision/ /provision/
-WORKDIR /provision
+ADD tasks/ /tasks/
+
+WORKDIR /tasks
 
 # provision (core)
-RUN /provision/core.sh
+RUN ./core.sh
 
 # langage & timezone
 RUN locale-gen ${LANG} \
