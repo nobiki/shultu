@@ -36,7 +36,7 @@ sudo apt install -y \
     sl \
     toilet \
     lolcat \
-    ibus-mozc
+    fcitx-mozc
 
 
 . ../provision/shell/include/awscli.sh
